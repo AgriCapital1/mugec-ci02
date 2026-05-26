@@ -32,6 +32,8 @@ type Stats = {
   members_total: number; members_actifs: number; members_en_attente: number;
   members_suspendus?: number;
   cotisations_mois: number; cotisations_total: number; cotisations_attente?: number;
+  droits_adhesion_mois?: number; droits_adhesion_total?: number;
+  revenus_mois?: number; revenus_total?: number;
   prestations_en_cours: number; prestations_validees_mois: number;
   prestations_rejetees_mois?: number;
 };
