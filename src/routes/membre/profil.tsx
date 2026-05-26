@@ -142,7 +142,7 @@ function Page() {
           <CardContent className="-mt-12 p-6 text-center">
             <div className="relative inline-block">
               <Avatar className="h-24 w-24 ring-4 ring-background shadow-lg">
-                {m.photo_url ? <AvatarImage src={m.photo_url} /> : null}
+                <MemberAvatarImage src={m.photo_url} />
                 <AvatarFallback className="text-xl bg-primary text-primary-foreground">
                   {initials}
                 </AvatarFallback>
