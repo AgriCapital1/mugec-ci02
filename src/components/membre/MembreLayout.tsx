@@ -148,7 +148,7 @@ export function MembreLayout({
   actions?: ReactNode;
   children: ReactNode;
 }) {
-  const { user, loading } = useAuth();
+  const { user, loading, signOut } = useAuth();
   const nav = useNavigate();
   const [me, setMe] = useState<MemberSummary | null>(null);
 
