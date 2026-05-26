@@ -1031,6 +1031,7 @@ export type Database = {
       }
       can_manage_payments: { Args: { _user_id: string }; Returns: boolean }
       current_user_dashboard_path: { Args: never; Returns: string }
+      dashboard_sync_health: { Args: never; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
