@@ -46,7 +46,7 @@ function Page() {
         .eq("user_id", user.id)
         .maybeSingle();
       if (!active) return;
-      if (error) toast.error(error.message);
+      if (error) { console.error("profil load failed", error); toast.error("Impossible de charger votre profil."); }
       setM(data ?? { user_id: user.id, email: user.email });
       setFetched(true);
     })();
@@ -70,7 +70,7 @@ function Page() {
       })
       .eq("user_id", user!.id);
     setSaving(false);
-    if (error) return toast.error(error.message);
+    if (error) { console.error("profil save failed", error); return toast.error("Impossible d'enregistrer les modifications."); }
     toast.success("Profil mis à jour");
     setEdit(false);
   }
@@ -82,8 +82,9 @@ function Page() {
     const path = `${user.id}/photo-${Date.now()}-${f.name}`;
     const up = await supabase.storage.from("avatars").upload(path, f, { upsert: true });
     if (up.error) {
+      console.error("avatar upload failed", up.error);
       setUploading(false);
-      return toast.error(up.error.message);
+      return toast.error("Impossible d'envoyer la photo. Veuillez réessayer.");
     }
     // Store the storage path (bucket is private — signed URLs are generated on render)
     const url = path;
@@ -92,7 +93,7 @@ function Page() {
       .update({ photo_url: url })
       .eq("user_id", user.id);
     setUploading(false);
-    if (error) return toast.error(error.message);
+    if (error) { console.error("avatar update failed", error); return toast.error("Impossible d'enregistrer la photo."); }
     setM({ ...m, photo_url: url });
     toast.success("Photo mise à jour");
   }
