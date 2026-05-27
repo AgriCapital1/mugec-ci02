@@ -254,8 +254,8 @@ function Page() {
       toast.success("Inscription validée. Bienvenue !");
       nav({ to: "/membre" });
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Erreur inconnue";
-      toast.error(msg);
+      console.error("inscription submit failed", e);
+      toast.error("Échec de l'inscription. Veuillez réessayer.");
     } finally {
       setSubmitting(false);
     }
