@@ -73,8 +73,10 @@ function AdminDashboard() {
       q = q.or(`nom.ilike.${s},prenoms.ilike.${s},telephone.ilike.${s},matricule.ilike.${s},email.ilike.${s}`);
     }
     const { data, error } = await q;
-    if (error) toast.error(error.message);
-    else setMembers((data as MemberRow[]) || []);
+    if (error) {
+      console.error("[admin/index] loadMembers failed", error);
+      toast.error("Impossible de charger les membres.");
+    } else setMembers((data as MemberRow[]) || []);
     setLoading(false);
   }
   async function loadTrend() {
