@@ -44,8 +44,10 @@ function CotisationsPage() {
       .range(page * PAGE, page * PAGE + PAGE - 1);
     if (statut !== "all" && statut !== "en_retard") qb = qb.eq("statut", statut);
     const { data, error } = await qb;
-    if (error) toast.error(error.message);
-    else setRows((data as any) || []);
+    if (error) {
+      console.error("[admin/cotisations] load failed", error);
+      toast.error("Impossible de charger les cotisations.");
+    } else setRows((data as any) || []);
     setLoading(false);
   }
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [page, statut]);
