@@ -59,7 +59,10 @@ function NotificationsPage() {
       .from("notification_templates")
       .select("*")
       .order("created_at", { ascending: false });
-    if (error) toast.error(error.message); else setTpls((data as any) || []);
+    if (error) {
+      console.error("[admin/notifications] loadTpls failed", error);
+      toast.error("Impossible de charger les modèles.");
+    } else setTpls((data as any) || []);
   }
   useEffect(() => { loadLogs(); loadTpls(); /* eslint-disable-next-line */ }, [canal]);
 
