@@ -86,8 +86,10 @@ function NotificationsPage() {
     const { error } = await supabase.from("notification_templates").insert([{
       event: draft.event, channel: draft.channel, title: draft.title, body: draft.body, active: draft.active ?? true,
     }]);
-    if (error) toast.error(error.message);
-    else { toast.success("Modèle créé"); setCreating(false); setDraft({ event: "", channel: "email", title: "", body: "", active: true }); loadTpls(); }
+    if (error) {
+      console.error("[admin/notifications] saveDraft failed", error);
+      toast.error("Impossible d'enregistrer le modèle.");
+    } else { toast.success("Modèle créé"); setCreating(false); setDraft({ event: "", channel: "email", title: "", body: "", active: true }); loadTpls(); }
   }
 
   return (
