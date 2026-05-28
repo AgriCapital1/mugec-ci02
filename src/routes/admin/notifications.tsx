@@ -74,7 +74,10 @@ function NotificationsPage() {
 
   async function toggleTpl(t: Tpl) {
     const { error } = await supabase.from("notification_templates").update({ active: !t.active }).eq("id", t.id);
-    if (error) toast.error(error.message); else { toast.success("Modèle mis à jour"); loadTpls(); }
+    if (error) {
+      console.error("[admin/notifications] toggleTpl failed", error);
+      toast.error("Impossible de mettre à jour le modèle.");
+    } else { toast.success("Modèle mis à jour"); loadTpls(); }
   }
   async function saveDraft() {
     if (!draft.event || !draft.channel || !draft.title || !draft.body) {
